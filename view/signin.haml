@@ -1,0 +1,14 @@
+%div.signin
+  %form
+    %fieldset
+      %label{:for => :email}
+        Email: 
+      %input#email{:type => :text, :name => :email}
+      %br
+      %label{:for => :password}
+        Password:
+      %input#password{:type => :password, :name => :password}
+      %br
+      %input{:type => :submit, :value => "Log in", :name => :login}
+  
+      

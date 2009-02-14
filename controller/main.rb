@@ -8,11 +8,16 @@
 class MainController < Controller
   # the index action is called automatically when no other action is specified
   def index
-    @title = "Welcome to Ramaze!"
+    
   end
   
-  def foo
-    @title = "Fooooo!"
+  def signin
+    @title = "WriteTogether - Sign In"
+    "signin page"
+  end
+  
+  def register
+    "register page"
   end
 
   # the string returned at the end of the function is used as the html body
