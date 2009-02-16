@@ -23,7 +23,7 @@ class LoggedInController < Controller
     if !logged_in?
       session[:login_redirecting] = {
         :controller => Controller.current,
-        :action => Action.current.method.to_sym
+        :action => Ramaze::Action.current.method.to_sym
       }
       redirect R(MainController, :login)
     end

@@ -20,19 +20,23 @@ class MainController < Controller
     end
   end
   
-  def signin
-    @title = "WriteTogether - Sign In"
-    "signin page"
+  def login
+    if request.get?
+      @title = "WriteTogether - Sign In"
+      "signin page"
+    elsif request.post?
+      @title =  "WriteTogether - Sign In - Posted!"
+      puts request.params.inspect
+      if User.authenticate(request.params['email'], request.params['password'])
+        puts "yay, it worked"
+      else
+        puts "boo, you suck"
+      end
+    end
   end
   
   def register
     "register page"
   end
 
-  # the string returned at the end of the function is used as the html body
-  # if there is no template for the action. if there is a template, the string
-  # is silently ignored
-  def notemplate
-    "there is no 'notemplate.xhtml' associated with this action"
-  end
 end

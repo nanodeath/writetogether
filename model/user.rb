@@ -12,4 +12,12 @@ class User < Sequel::Model
   def initialize
     
   end
+
+  def self.authenticate(user, pass)
+    u = User[user]
+    puts "user: #{user.inspect}, #{u.inspect}"
+    puts User.length
+    puts "password: #{u.password.inspect}"
+    !u.nil? && u.password == pass
+  end
 end

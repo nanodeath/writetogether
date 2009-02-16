@@ -12,8 +12,12 @@ require 'model/user'
 unless User.table_exists?
   puts "table doesn't exist"
   User.create_table
-  #User.create(:username => 'admin', :password => 'password')
-  User << {:username => 'admin', :password => 'password'}
+  u = User.new
+  u.username = 'admin'
+  u.password = 'password'
+  u.save
+#  User.create(:username => 'admin', :password => 'password')
+  #User << {:username => 'admin', :password => 'password'}
   puts "user created"
 end
 
