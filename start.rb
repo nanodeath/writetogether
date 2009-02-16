@@ -1,7 +1,9 @@
 require 'rubygems'
 
-require '../github/rack/lib/rack.rb'
-require 'ramaze'
+require '../rack/lib/rack.rb'
+#require 'rack'
+require '../ramaze/lib/ramaze.rb'
+#require 'ramaze'
 
 # Add directory start.rb is in to the load path, so you can run the app from
 # any other working path

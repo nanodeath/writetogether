@@ -1,22 +1,28 @@
-%div{:style => "float: right"}
-  %a{:href => "/signin"}
+%h1
+  WriteTogether
+%h2
+  A place for authors and students to help each other
+
+%div{:style => "position:absolute; right:10px;"}
+  %a{:href => "/signin"}<
     Sign in
-  %a{:href => '/register'}
+  %a{:href => '/register'}<
     Create account
-#tabs
-  %ul
-    %li
-      %a{:href => "#tab1"}
-        %span Tab 1
-    %li
-      %a{:href => "#tab2"}
-        %span Tab 2
-    %li
-      %a{:href => "#tab3"}
-        %span Tab 3
-  #tab1
-    = render_template :tab1
-  #tab2
-    = render_template :tab2
-  #tab3
-    = render_template :tab3
+%div
+  #tabs
+    %ul
+      %li
+        %a{:href => "#tab1"}
+          %span Tab 1
+      %li
+        %a{:href => "#tab2"}
+          %span Tab 2
+      %li
+        %a{:href => "#tab3"}
+          %span Tab 3
+    #tab1
+      = render_template :tab1
+    #tab2
+      = render_template :tab2
+    #tab3
+      = render_template :tab3

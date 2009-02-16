@@ -3,9 +3,38 @@
 
 class Controller < Ramaze::Controller
   layout '/page'
-  #helper :xhtml
+  helper :xhtml
   engine :Haml
+end
+
+class LoggedInController < Controller
+  layout '/logged_in'
+  helper :aspect
+  before_all do
+    login_required unless ['login'].include? Action.current.method
+  end
+
+  private
+  def logged_in?
+    !!session[:logged_in]
+  end
+
+  def login_required
+    if !logged_in?
+      session[:login_redirecting] = {
+        :controller => Controller.current,
+        :action => Action.current.method.to_sym
+      }
+      redirect R(MainController, :login)
+    end
+  end
 end
 
 # Here go your requires for subclasses of Controller:
 require 'controller/main'
+require 'controller/news'
+require 'controller/circle'
+require 'controller/works'
+require 'controller/badges'
+require 'controller/forum'
+require 'controller/resources'

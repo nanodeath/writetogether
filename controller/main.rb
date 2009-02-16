@@ -8,7 +8,16 @@
 class MainController < Controller
   # the index action is called automatically when no other action is specified
   def index
-    
+    if(false)
+      redirect Rs :home
+    end
+  end
+
+  # for the signed in user
+  def home
+    if(false)
+      redirect Rs :index
+    end
   end
   
   def signin
