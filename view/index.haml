@@ -4,9 +4,9 @@
   A place for authors and students to help each other
 
 %div{:style => "position:absolute; right:10px;"}
-  %a{:href => "/signin"}<
+  %a{:href => R(UserController, :authenticate)}<
     Sign in
-  %a{:href => '/register'}<
+  %a{:href => R(UserController, :create)}<
     Create account
 %div
   #tabs

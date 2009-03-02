@@ -1,0 +1,16 @@
+%h1 Create Account
+%form.user_edit{:method => :post}
+  %fieldset
+    %legend Basic Info
+    %div.email_address.field
+      %label{:for => "user[email]"} Email address
+      %input{:type => 'text', :id => 'user[email]', :name => 'user[email]'}
+      - unless !@errors.key?(:email) or @errors[:email].empty?
+        %span.error== Email #{@errors[:email].join(', ')}.
+    %div.password.field
+      %label{:for => "user[password]"} Password
+      %input{:type => 'password', :id => 'user[password]', :name => 'user[password]'}
+      - unless !@errors.key?(:password) or @errors[:password].empty?
+        %span.error== Password #{@errors[:password].join(', ')}.
+    %div.field
+      %input{:type => 'submit', :name => 'submit', :value => "Submit"}

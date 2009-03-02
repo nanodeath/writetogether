@@ -8,20 +8,10 @@ class NewsController < LoggedInController
 
   def index
     #puts Ramaze::Action.current.controller
-    @slot1a = slot do
-      #puts Ramaze::Action.current.controller
-      render_template 'news/blog_latest5'
-    end
-    @slot1b = slot do
-      render_template 'news/wrote_something_new'
-    end
-    @slot1c = slot do
-      render_template 'news/met_new_people'
-    end
-    @slot2a = slot do
-      render_template 'news/read_some_works'
-    end
-    Thread.pass
+    @slot1a = render_template 'blog_latest5'
+    @slot1b = render_template 'wrote_something_new'
+    @slot1c = render_template 'met_new_people'
+    @slot2a = render_template 'read_some_works'
 
     "foo"
   end

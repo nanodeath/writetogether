@@ -3,7 +3,7 @@
 
 class Controller < Ramaze::Controller
   layout '/page'
-  helper :xhtml
+  helper :flash, :xhtml
   engine :Haml
 end
 
@@ -16,7 +16,7 @@ class LoggedInController < Controller
 
   private
   def logged_in?
-    !!session[:logged_in]
+    not session[:user].nil?
   end
 
   def login_required
@@ -25,7 +25,7 @@ class LoggedInController < Controller
         :controller => Controller.current,
         :action => Ramaze::Action.current.method.to_sym
       }
-      redirect R(MainController, :login)
+      redirect R(UserController, :authenticate)
     end
   end
 end
@@ -38,3 +38,4 @@ require 'controller/works'
 require 'controller/badges'
 require 'controller/forum'
 require 'controller/resources'
+require 'controller/user'

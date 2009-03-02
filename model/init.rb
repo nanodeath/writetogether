@@ -13,7 +13,7 @@ unless User.table_exists?
   puts "table doesn't exist"
   User.create_table
   u = User.new
-  u.username = 'admin'
+  u.email = 'admin@giftswappo.com'
   u.password = 'password'
   u.save
 #  User.create(:username => 'admin', :password => 'password')

@@ -1,0 +1,15 @@
+%h1 Log in
+%form.user_edit{:method => :post}
+  %fieldset
+    %legend Basic Info
+    - if @error
+      .errors
+        Sorry, invalid login.
+    %div.email_address.field
+      %label{:for => "user[email]"} Email address
+      %input{:type => 'text', :id => 'user[email]', :name => 'user[email]'}
+    %div.password.field
+      %label{:for => "user[password]"} Password
+      %input{:type => 'password', :id => 'user[password]', :name => 'user[password]'}
+    %div.field
+      %input{:type => 'submit', :name => 'submit', :value => "Submit"}
