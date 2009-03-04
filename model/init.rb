@@ -21,5 +21,11 @@ unless User.table_exists?
   puts "user created"
 end
 
+require 'model/work'
+
+unless Work.table_exists?
+  Work.create_table
+end
+
 # Here go your requires for models:
 # require 'model/user'
