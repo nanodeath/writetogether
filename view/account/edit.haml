@@ -1,0 +1,36 @@
+%h1 Edit My Account
+%p
+  Change information on file and who can see it.
+%form#edit_my_account{:method => 'post', :action => R(AccountController, :update)}
+  .visibility_legend
+    %abbr{:title => 'Private'} P
+    %abbr{:title => 'Guilds'} G
+    %abbr{:title => 'Members'} M
+  .name
+    %label{:for => 'name_field'} Name
+    %input{:type => 'text', :name => 'user[name]', :id => 'name_field', :value => @user.name}
+    = render_template '_visibility_radios', :field => 'name'
+  .email
+    %label{:for => 'email_field'} Email
+    %input{:type => 'text', :name => 'user[email]', :id => 'email_field', :value => @user.email}
+    = render_template '_visibility_radios', :field => 'email'
+  .interests
+    %label{:for => 'interests_field'} Interests
+    %input{:type => 'text', :name => 'user[interests]', :id => 'interests_field', :value => @user.interests}
+    = render_template '_visibility_radios', :field => 'interests'
+  .city
+    %label{:for => 'city_field'} City
+    %input{:type => 'text', :name => 'user[city]', :id => 'city_field', :value => @user.city}
+    = render_template '_visibility_radios', :field => 'city'
+  .state
+    %label{:for => 'state_province_field'} State/Province
+    %input{:type => 'text', :name => 'user[state_province]', :id => 'state_province_field', :value => @user.state_province}
+    = render_template '_visibility_radios', :field => 'state_province'
+  .country
+    %label{:for => 'country_field'} Country
+    %input{:type => 'text', :name => 'user[country]', :id => 'country_field', :value => @user.country}
+    = render_template '_visibility_radios', :field => 'country'
+  .profile
+    Profile Visibility
+    = render_template '_visibility_radios', :field => 'profile'
+  %input{:type => 'submit', :value => 'Update'}

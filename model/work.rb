@@ -10,6 +10,7 @@ class Work < Sequel::Model
     varchar :file_name
     timestamp :created_at
     timestamp :updated_on
+    Integer :visibility, :default => 0 # 2 is all, 1 is guild, 0 is private
   end
 
   many_to_one :user
@@ -18,6 +19,10 @@ class Work < Sequel::Model
     presence_of :user_id
     presence_of :title
     presence_of :file_name
+  end
+
+  before_create :update_create_timestamp do
+    self.created_at = Time.now
   end
 
   before_save :update_timestamps do

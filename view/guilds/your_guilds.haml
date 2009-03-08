@@ -1,0 +1,6 @@
+%h2 Your Guilds
+%ul
+  - @your_guilds.each do |guild|
+    %li
+      %a{:href => Rs(:show, guild.id)}= guild.name
+        

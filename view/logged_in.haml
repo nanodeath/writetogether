@@ -17,9 +17,11 @@
           Nav button
           %ol
             %li
+              %a{:href => R(AccountController, :my)} My Account
+            %li
               %a{:href => R(NewsController, :index)} News
             %li
-              %a{:href => R(CircleController, :index)} Circle
+              %a{:href => R(GuildsController, :index)} Guilds
             %li
               %a{:href => R(WorksController, :index)} Works
             %li
@@ -31,36 +33,43 @@
             %li
               %a{:href => R(ResourcesController, :index)} Resources
         %h2.ui-state-highlight.ui-corner-all== Thanks for being logged in, #{session[:user].email}!
+        - if flash[:info]
+          %div.ui-state-highlight.ui-corner-all= flash[:info]
+      - @layout ||= :slots
       %div
-        - if @slot1c
-          .yui-gb
-            %div{:class => "yui-u first slot ui-widget"}
-              = @slot1a.to_s || "No content"
-            %div{:class => "yui-u slot ui-widget"}
-              = @slot1b || "No content"
-            %div{:class => "yui-u slot ui-widget"}
-              = @slot1c || "No content"
-        - elsif @slot1b
+        - if @layout == :slots
+          - if @slot1c
+            .yui-gb
+              %div{:class => "yui-u first slot ui-widget"}
+                = @slot1a.to_s || "No content"
+              %div{:class => "yui-u slot ui-widget"}
+                = @slot1b || "No content"
+              %div{:class => "yui-u slot ui-widget"}
+                = @slot1c || "No content"
+          - elsif @slot1b
+            .yui-g
+              %div{:class => "yui-u first slot ui-widget"}
+                = @slot1a.to_s
+              %div{:class => "yui-u slot ui-widget"}
+                = @slot1b
+          - elsif @slot1a || @content
+            .yui-g
+              .slot
+                = @slot1a || @content
           .yui-g
-            %div{:class => "yui-u first slot ui-widget"}
-              = @slot1a.to_s
-            %div{:class => "yui-u slot ui-widget"}
-              = @slot1b
-        - elsif @slot1a
+            %div{:class => "yui-g first"}
+              %div{:class => "yui-u first slot ui-widget"}
+                = @slot2a
+              %div{:class => "yui-u slot ui-widget"}
+                = @slot2b
+            %div{:class => "yui-g"}
+              %div{:class => "yui-u first slot ui-widget"}
+                = @slot2c
+              %div{:class => "yui-u slot ui-widget"}
+                = @slot2d
+        - else
           .yui-g
-            .slot
-              = @slot1a
-        .yui-g
-          %div{:class => "yui-g first"}
-            %div{:class => "yui-u first slot ui-widget"}
-              = @slot2a
-            %div{:class => "yui-u slot ui-widget"}
-              = @slot2b
-          %div{:class => "yui-g"}
-            %div{:class => "yui-u first slot ui-widget"}
-              = @slot2c
-            %div{:class => "yui-u slot ui-widget"}
-              = @slot2d
+            = @content
       = #@content
       #ft
         &copy; 2009 Max's Face

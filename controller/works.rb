@@ -30,6 +30,22 @@ class WorksController < LoggedInController
     end
   end
 
+  def show(id)
+    @work = Work[id]
+    @slot1a = render_template 'show_details'
+  end
+
+  def update(id)
+    return unless request.post?
+    w = Work[id]
+    if(w and w.update(request['work']))
+      flash[:info] = 'Saved successfully'
+    else
+      flash[:info] = 'Save failed'
+    end
+    redirect(Rs(:show, id))
+  end
+
   def upload
     if request.post?
       tempfile, filename, @type = request[:file].values_at(:tempfile, :filename, :type)

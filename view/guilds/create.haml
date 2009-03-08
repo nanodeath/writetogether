@@ -1,0 +1,32 @@
+%h2 Create a guild
+%form#create_a_guild{:method => 'post'}
+  - if @errors and !@errors.empty?
+    .errors.ui-state-error.ui-corner-all
+      %span.ui-icon.ui-icon-alert{:style => "float: left; margin-right: 0.3em;"}
+      .error_text
+        %strong An error occurred:
+        %ul
+          - @errors.each_pair do |field, error_list|
+            - error_list.each do |error|
+              %li= field.to_s.capitalize + " " + error.to_s
+  .name
+    %label{:for => 'name_field'}
+      Name
+    %input{:type => :text, :name => 'guild[name]'}
+  .type
+    %label{:for => 'type_field'}
+      %span.help{:title => "Some Help Text"}<
+        Type
+    %select{:name => 'guild[guild_type]', :id => 'type_field'}
+      %option{:value => "Awesome"} Awesome
+      %option{:value => "Lame"} Lame
+  .visibility
+    %label{:for => 'visibility_field'}
+      %span.help{:title => "Mouse over entries in the select box to view details"}<
+        Visibility
+    %select{:name => 'guild[visibility]', :id => 'visibility_field'}
+      %option{:value => Guild::Visibility::SECRET, :title => "Nothing is displayed; it's like this guild doesn't exist"} Secret
+      %option{:value => Guild::Visibility::LIMITED, :selected => true, :title => "Only type and size are visible"} Limited
+      %option{:value => Guild::Visibility::FULL, :title => "Type, size, and members are all visibile"} Full
+
+  %input{:type => :submit, :value => "Create!"}

@@ -1,0 +1,10 @@
+.members
+  %h1 Members
+  %ul
+    - @members.each do |pair|
+      %li
+        =GuildsUsers.connection_to_abbr(pair.first) + ": "
+        - if pair.last.profile_visibility == User::Visibility::PRIVATE
+          =pair.last.name
+        - else
+          %a{:href => R(AccountController, :show, pair.last.id)}=pair.last.name

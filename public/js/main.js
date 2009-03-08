@@ -1,9 +1,11 @@
 (function($){
-  $("#upload_dialog .errors").hide();
+  var dialog = $("#upload_dialog");
+  $(".errors", dialog).hide();
   $("#upload_dialog").dialog({
     autoOpen: false,
     title: "Upload a new work",
       resizable: false,
+      draggable: false,
       modal: true,
       buttons: {
         "Upload": function(){
@@ -28,10 +30,14 @@
             }
             $("#upload_dialog .error_text").html("<ul>" + error_html + "</ul>");
             $("#upload_dialog .errors").show();
+            $("#upload_dialog").dialog("open");
           }
           
         },
         "Cancel": function(){
+          $(".error_text", dialog).html("");
+          $(".errors", dialog).hide();
+          $("input", dialog).val("");
           $(this).dialog("close");
         }
       },

@@ -1,0 +1,8 @@
+%h1= @current_user.can_view_attribute?(@user, :name) && @user.name ? @user.name : "User #{@user.id}"
+%h2= @current_user.can_view_attribute?(@user, :email) && @user.email ? @user.email : "[Email]"
+- if @current_user == @user
+  %p== This is your profile.  Want to <a href="#{Rs(:my)}">edit</a> it?
+%p= @current_user.can_view_attribute?(@user, :interests) && @user.interests ? "Interests: " + @user.interests : "Interests: none given"
+%p= @current_user.can_view_attribute?(@user, :city) && @user.city ? "City: " + @user.city : "City: not given"
+%p= @current_user.can_view_attribute?(@user, :state_province) && @user.state_province ? "State/Province: " + @user.state_province : "State/Province: none given"
+%p= @current_user.can_view_attribute?(@user, :country) && @user.country ? "Countr: " + @user.country : "Country: none given"

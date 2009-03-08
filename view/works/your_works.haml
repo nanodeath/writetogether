@@ -3,7 +3,8 @@
   %a{:href => R(WorksController, :your)} View all your works
   %ol
     - @your_works.each do |work|
-      %li= work.title
+      %li
+        %a{:href => Rs(:show, work.id)}= work.title
   %a#upload_new_work{:href => "#"} Upload a new work
   #upload_dialog{:style => "display:none"}
     .errors.ui-state-error
