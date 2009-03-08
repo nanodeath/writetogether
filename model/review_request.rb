@@ -1,26 +1,23 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-class Work < Sequel::Model
-  
+class ReviewRequest < Sequel::Model
   set_schema do
     primary_key :id
-    integer :user_id
-    varchar :title
-    varchar :file_name
+    foreign_key :work_id, :works
+    foreign_key :recipient_id, :user
+    String :message
+    String :response
+    var_char :file_name
+
+    boolean :work_deleted, :default => false
+
     timestamp :created_at
     timestamp :updated_on
-    Integer :visibility, :default => 0 # 2 is all, 1 is guild, 0 is private
   end
 
-  many_to_one :user
-  one_to_many :review_requests
-
-  validates do
-    presence_of :user_id
-    presence_of :title
-    presence_of :file_name
-  end
+  many_to_one :work
+  many_to_one :recipient, :class => 'User' #, :foreign_key => :recipient_id
 
   before_create :update_create_timestamp do
     self.created_at = Time.now
@@ -31,6 +28,6 @@ class Work < Sequel::Model
   end
 
   def url
-    "/works/#{file_name}"
+    "/review_requests/#{file_name}"
   end
 end

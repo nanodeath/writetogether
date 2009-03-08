@@ -6,7 +6,7 @@
       %li
         %a{:href => Rs(:show, work.id)}= work.title
   %a#upload_new_work{:href => "#"} Upload a new work
-  #upload_dialog{:style => "display:none"}
+  .your_works#upload_dialog{:style => "display:none"}
     .errors.ui-state-error
       %span.ui-icon.ui-icon-alert{:style => "float: left; margin-right: 0.3em;"}
       .error_text

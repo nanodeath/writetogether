@@ -12,14 +12,15 @@ class GuildsController < LoggedInController
     #@layout = :regular
     #@content = 'foo'
     @your_guilds = session[:user].guilds
+    Ramaze::Log.info(@your_guilds.inspect)
     @slot1a = render_template 'your_guilds'
     @slot1b = render_template 'guild_operations'
   end
 
   def show(id)
     id = id.to_i
-    guild = Guild[id]
-    if(guild.nil? || (guild.visibility == Guild::Visibility::SECRET && guild.is_member?(session[:user])))
+    @guild = Guild[id]
+    if(@guild.nil? || (@guild.visibility == Guild::Visibility::SECRET && !@guild.is_member?(session[:user])))
       flash[:info] = "DENIED"
       redirect Rs(:index)
     end
@@ -47,9 +48,15 @@ class GuildsController < LoggedInController
       if guild.valid?
         guild.save
         Ramaze::Log.info("primary_key_restricted? " + GuildsUsers.restrict_primary_key?.to_s)
-        GuildsUsers.create(:guild_id => guild.id, :user_id => session[:user].id, :connection => GuildsUsers::Connection::CREATOR)
-        flash[:info] = "Guild #{guild.name} created and displayed"
-        redirect Rs(:show, guild.id)
+        gu = GuildsUsers.new(:guild_id => guild.id, :user_id => session[:user].id, :connection => GuildsUsers::Connection::CREATOR)
+        if gu.valid?
+          gu.save
+          flash[:info] = "Guild #{guild.name} created and displayed"
+          redirect Rs(:show, guild.id)
+        else
+          @errors = gu.errors
+        end
+        
       else
         @errors = guild.errors
       end

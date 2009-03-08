@@ -1,4 +1,20 @@
 .works_youre_reviewing
-  %h1 Works You're Reviewing
-  %ol
-    %li Your Mom: An Ode To Joy
+  %h2 Works You're Reviewing
+  %ul
+    - @review_requests_i_received.each do |req|
+      %li
+        %a{:href => Rs(:show, req.work.id)}>=req.work.title
+        , for
+        %a{:href => R(UserController, :show, req.recipient.id), :title => "On #{req.created_at}"}=req.work.user.name
+    - if @review_requests_i_received.empty?
+      %li No requests for you!
+
+.works_youre_getting_reviewed
+  %h2 Works You're Getting Reviewed
+  %ul
+    - @review_requests_i_sent.each do |req|
+      %li
+        %a{:href => Rs(:show, req.work.id)}>=req.work.title
+        , for 
+        %a{:href => R(UserController, :show, req.recipient.id), :title => "On #{req.created_at}"}=req.recipient.name
+    

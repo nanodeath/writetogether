@@ -32,7 +32,8 @@ class User < Sequel::Model
     Integer :country_visibility, :default => User::Visibility::ALL
   end
 
-  one_to_many :work
+  one_to_many :works
+  one_to_many :latest_works, :class => "Work", :limit => 5
   many_to_many :guilds
   many_to_many :created_guilds, :class => "Guild", :conditions => {:connection => GuildsUsers::Connection::CREATOR}
 
@@ -64,5 +65,23 @@ class User < Sequel::Model
     attribute_visibility = target_user[(attribute.to_s + '_visibility').to_sym]
     return attribute_visibility == User::Visibility::ALL ||
       (self.in_guild_with?(target_user) && attribute_visibility == User::Visibility::GUILD)
+  end
+
+  # run time: O(m * n) where m is the number of groups and n is the size per group
+  def get_peers(group_limit=3)
+    peers = {}
+    Guild.filter(:id => self.guilds.collect {|g| g.id}).all.each do |guild|
+      guild.users.each do |u|
+        next if u == self
+        peers[u] ||= []
+        next if peers[u].length >= group_limit
+        peers[u] << guild.name
+      end
+    end
+    peers
+  end
+
+  def is_reviewing_work?(work)
+    !ReviewRequest.filter(:recipient_id => self.id, :work_id => work.id).empty?
   end
 end

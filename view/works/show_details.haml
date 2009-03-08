@@ -3,14 +3,38 @@
   %em== Created at: #{@work.created_at}
 %p
   %em== Updated on: #{@work.updated_on}
-%form{:method => 'post', :action => Rs(:update, @work.id)}
-  .visibility_legend
-    %abbr{:title => 'Private'} P
-    %abbr{:title => 'Guilds'} G
-    %abbr{:title => 'Members'} M
-  Visibility:
-  %input{:type => 'radio', :name => 'work[visibility]', :id => 'access_private', :checked => (@work.visibility == 0 ? 'checked' : nil), :value => 0}
-  %input{:type => 'radio', :name => 'work[visibility]', :id => 'access_guild', :checked => (@work.visibility == 1 ? 'checked' : nil), :value => 1}
-  %input{:type => 'radio', :name => 'work[visibility]', :id => 'access_public', :checked => (@work.visibility == 2 ? 'checked' : nil), :value => 2}
-  %br
-  %input{:type => 'submit', :value => 'Submit'}
+
+-# if session[:user].is_reviewing_work? @work
+- if !@rr.nil?
+  %h2 Review Request
+  %p
+    ==Sent: #{@work.created_at}
+  %p
+    ==Message from #{@work.user.name}: #{@rr.message}
+  %p
+    You're reviewing this work.  Click
+    %a{:href => @work.url} here
+    to download it.
+  %p
+    Done reviewing it?  Click
+    %a#done_reviewing{:href => "javascript:void(0)"}here
+    to respond.
+  .review_request#upload_dialog{:style => "display:none"}
+    .errors.ui-state-error
+      %span.ui-icon.ui-icon-alert{:style => "float: left; margin-right: 0.3em;"}
+      .error_text
+    %form#review_request_response{:method => 'post', :enctype => 'multipart/form-data', :action => Rs(:send_to_peer_response)}
+      .response
+        %label{:for => 'response_field'}
+          Response
+        %textarea{:name => 'review_request[response]', :id => 'response_field'}
+      .file_upload
+        %label{:for => 'file_upload_field'}
+          File upload (optional)
+        %input{:type => 'file', :name => 'review_request[file_name]', :id => 'file_upload_field'}
+      %input{:type => 'hidden', :name => 'review_request[id]', :value => @rr.id}
+- if session[:user] == @work.user
+  %p 
+    This is your file.  Click
+    %a{:href => @work.url} here
+    do download it if you want.

@@ -1,0 +1,28 @@
+%h1 Reviews
+%h2 Send to a peer
+%form#send_to_peer{:method => 'post', :action => Rs(:send_to_peer)}
+  .recipient
+    %label{:for => 'recipient_field'}
+      Recipient
+    %select{:name => 'review_request[recipient_id]', :id => 'recipient_field'}
+      - @peers.each_pair do |user, groups|
+        %option{:value => user.id}== #{user.name} (#{groups.join(',')})
+  .message
+    %label{:for => 'message_field'}
+      Personalized message (optional)
+    %textarea{:name => 'review_request[message]', :id => 'message_field'}
+  %input{:type => 'hidden', :name => 'review_request[work_id]', :value => @work.id}
+  %input{:type => 'submit', :value => 'Send!'}
+
+%h2 Peer feedback
+- if @feedback.empty?
+  No feedback for this item.
+- else
+  %ol
+    - @feedback.each do |f|
+      %li
+        =f.recipient.name
+        %span.help{:title => "On #{f.updated_on}"} said
+        =f.response
+        - if !f.file_name.empty?
+          %a{:href => f.url} File uploaded.

@@ -32,6 +32,8 @@
               %a{:href => R(ForumController, :index)} Forum
             %li
               %a{:href => R(ResourcesController, :index)} Resources
+            %li
+              %a{:href => R(UserController, :sign_out)} Sign out
         %h2.ui-state-highlight.ui-corner-all== Thanks for being logged in, #{session[:user].email}!
         - if flash[:info]
           %div.ui-state-highlight.ui-corner-all= flash[:info]

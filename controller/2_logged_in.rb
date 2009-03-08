@@ -14,6 +14,7 @@ class LoggedInController < Controller
 #      end
 #    end
 #    end
+    session[:user].refresh
   end
 
   private
@@ -23,10 +24,11 @@ class LoggedInController < Controller
 
   def login_required
     if !logged_in?
-      session[:login_redirecting] = {
-        :controller => Controller.current,
-        :action => Ramaze::Action.current.method.to_sym
-      }
+#      session[:login_redirecting] = {
+#        :controller => Controller.current,
+#        :action => Ramaze::Action.current.method.to_sym
+#      }
+      session[:login_redirecting] = request.url
       redirect R(UserController, :authenticate)
     end
   end

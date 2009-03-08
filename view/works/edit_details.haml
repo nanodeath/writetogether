@@ -1,0 +1,12 @@
+%h1== Edit #{@work.title}
+%form{:method => 'post', :action => Rs(:update, @work.id)}
+  .visibility_legend
+    %abbr{:title => 'Private'} P
+    %abbr{:title => 'Guilds'} G
+    %abbr{:title => 'Members'} M
+  Visibility:
+  %input{:type => 'radio', :name => 'work[visibility]', :id => 'access_private', :checked => (@work.visibility == 0 ? 'checked' : nil), :value => 0}
+  %input{:type => 'radio', :name => 'work[visibility]', :id => 'access_guild', :checked => (@work.visibility == 1 ? 'checked' : nil), :value => 1}
+  %input{:type => 'radio', :name => 'work[visibility]', :id => 'access_public', :checked => (@work.visibility == 2 ? 'checked' : nil), :value => 2}
+  %br
+  %input{:type => 'submit', :value => 'Submit'}

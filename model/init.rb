@@ -2,7 +2,7 @@
 require 'sequel'
 
 begin
-  DB = Sequel.sqlite :loggers => [Ramaze::Log]
+  DB = Sequel.sqlite 'test.db', :loggers => [Ramaze::Log]
 rescue NoMethodError
   raise LoadError, 'Install latest Sequel gem'
 end
@@ -26,8 +26,6 @@ unless User.table_exists?
     u.name = email.split("@")[0]
     u.save
   end
-#  User.create(:username => 'admin', :password => 'password')
-  #User << {:username => 'admin', :password => 'password'}
 end
 
 
@@ -51,4 +49,15 @@ require 'model/work'
 
 unless Work.table_exists?
   Work.create_table
+  filename = File::join(__DIR__, '..', 'test.png')
+  basename = File.basename(filename)
+  FileUtils.copy(filename, File::join(Ramaze::Global.public_root, "works", basename))
+  w = Work.new(:title => "Test file", :file_name => basename)
+  w.user_id = User.first.id
+  w.save
+end
+
+require 'model/review_request'
+unless ReviewRequest.table_exists?
+  ReviewRequest.create_table
 end

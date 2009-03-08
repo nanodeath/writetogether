@@ -10,7 +10,7 @@ class UserController < Controller
         session[:user] = u
         if(session[:login_redirecting])
           flash[:redirected] = true
-          redirect R(session[:login_redirecting][:controller], session[:login_redirecting][:action])
+          redirect session[:login_redirecting]
         else
           redirect R(NewsController, :index)
         end
@@ -38,5 +38,11 @@ class UserController < Controller
         respond "you're registered"
       end
     end
+  end
+
+  def sign_out
+    session[:user] = nil
+    session[:login_redirecting] = nil
+    redirect R(MainController)
   end
 end
