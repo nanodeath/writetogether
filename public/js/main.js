@@ -17,20 +17,22 @@
           var title = $("#upload_work_title").val();
           var file = $("#file_upload").val();
           if(title == ""){
-            errors.push("Title can't be blank");
+            errors.push({field: "#upload_work_title", message: "Title can't be blank"});
           } else if(title.length < 4){
-            errors.push("Title can't be shorter than 4 characters");
+            errors.push({field: "#upload_work_title", message: "Title can't be shorter than 4 characters"});
           }
           if(file == ""){
-            errors.push("Forgot to specify a file");
+            errors.push({field: "#file_upload", message: "Forgot to specify a file"});
           }
           if(errors.length == 0){
             $("#upload_dialog .errors").hide();
             $("#upload_dialog form").submit();
           } else {
             var error_html = "";
+            $("input,textarea", your_works_dialog).removeClass("ui-state-error");
             for(e in errors){
-              error_html += "<li>" + errors[e] + "</li>";
+              error_html += "<li>" + errors[e].message + "</li>";
+              $(errors[e].field).addClass("ui-state-error");
             }
             $("#upload_dialog .error_text").html("<ul>" + error_html + "</ul>");
             $("#upload_dialog .errors").show();
@@ -41,7 +43,7 @@
         "Cancel": function(){
           $(".error_text", your_works_dialog).html("");
           $(".errors", your_works_dialog).hide();
-          $("input,textarea", your_works_dialog).val("");
+          $("input,textarea", your_works_dialog).val("").removeClass("ui-state-error");
           $(this).dialog("close");
         }
       },

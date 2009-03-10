@@ -9,8 +9,6 @@ class WorksController < LoggedInController
   helper :slots
 
   def index
-    # TODO: optimize
-    #@your_works = Work.filter(:user_id => session[:user].id).limit(5)
     @your_works = session[:user].latest_works
 
     @review_requests_i_sent = []

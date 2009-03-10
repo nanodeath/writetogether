@@ -7,11 +7,11 @@
         %a{:href => Rs(:show, work.id)}= work.title
   %a#upload_new_work{:href => "#"} Upload a new work
   .your_works#upload_dialog{:style => "display:none"}
-    .errors.ui-state-error
+    .errors.ui-state-error.ui-corner-all
       %span.ui-icon.ui-icon-alert{:style => "float: left; margin-right: 0.3em;"}
       .error_text
     %form{:method => "post", :enctype => "multipart/form-data", :action => R(WorksController, :upload)}
       %label{:for => "upload_work_title"} Title: 
-      %input#upload_work_title{:type => "text", :name => "title"}
+      %input#upload_work_title.ui-widget-content.ui-corner-all{:type => "text", :name => "title"}
       %br
-      %input#file_upload{:type => "file", :name => "file"}
+      %input#file_upload.ui-widget-content.ui-corner-all{:type => "file", :name => "file"}
