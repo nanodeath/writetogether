@@ -6,8 +6,6 @@
 # this will force the controller to be mounted on: /otherurl
 
 class GuildsController < LoggedInController
-  helper :slots
-  
   def index
     #@layout = :regular
     #@content = 'foo'

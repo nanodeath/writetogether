@@ -6,18 +6,8 @@
 # this will force the controller to be mounted on: /otherurl
 
 class ForumController < LoggedInController
-  helper :slots
-#  helper :user
-#  helper :auth
-
-  
-
   def index
-    @slot1a = slot do
-      puts "user:" + user.inspect
-      render_template 'badges/alignment'
-    end
-    ''
+    @slot1a = render_template 'alignment'
   end
 
   private

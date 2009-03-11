@@ -6,25 +6,13 @@
 # this will force the controller to be mounted on: /otherurl
 
 class BadgesController < LoggedInController
-  helper :slots
   
   def index
-    @slot1a = slot do
-      render_template 'badges/alignment'
-    end
-    @slot1b = slot do
-      render_template 'badges/reviewer_badges'
-    end
-    @slot1c = slot do
-      render_template 'badges/reviewer_antibadges'
-    end
+    @slot1a = render_template 'alignment'
+    @slot1b = render_template 'reviewer_badges'
+    @slot1c = render_template 'reviewer_antibadges'
 
-    @slot2c = slot do
-      render_template 'badges/author_badges'
-    end
-    @slot2d = slot do
-      render_template 'badges/author_antibadges'
-    end
-    ''
+    @slot2c = render_template 'author_badges'
+    @slot2d = render_template 'author_antibadges'
   end
 end

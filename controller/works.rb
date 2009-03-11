@@ -6,8 +6,6 @@
 # this will force the controller to be mounted on: /otherurl
 
 class WorksController < LoggedInController
-  helper :slots
-
   def index
     @your_works = session[:user].latest_works
 

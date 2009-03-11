@@ -6,12 +6,8 @@
 # this will force the controller to be mounted on: /otherurl
 
 class ResourcesController < LoggedInController
-  helper :slots
   
   def index
-    @slot1a = slot do
-      render_template 'resources/links'
-    end
-    ''
+    @slot1a = render_template 'links'
   end
 end
